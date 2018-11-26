@@ -1,0 +1,52 @@
+<div class="panel panel-primary">
+    <div class="panel-heading text-left">
+        {{pageTitle}}
+    </div>
+    <div class="panel-body">
+        <div class="row text-left" >
+            <div class="col-md-1">Filter by:</div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]='listFilter' />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <h3>Filterd by: {{listFilter}} </h3>
+            </div>
+        </div>
+        <div class="table">
+            <table class="table table-striped" *ngIf="filteredProducts && filteredProducts.length">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            <button class="btn btn-primary" (click)="toggleImage()">{{showImage ? 'Hide' : 'Show'}} images</button>
+                        </th>
+                        <th class="text-center">Product</th>
+                        <th class="text-center">Code</th>
+                        <th class="text-center">Available</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Rating</th>
+                    </tr>
+                </thead>
+                <tbody text-center>
+                    <tr *ngFor='let product of filteredProducts'>
+                        <td><img *ngIf="showImage" 
+                                [src]='product.imageUrl'  
+                                [style.width.px]='imageWidth' 
+                                [style.margin.px]='imageMargin' 
+                                [title]='product.productName' />
+                        </td>
+                        <td>{{product.productName}} </td>
+                        <td>{{product.productCode | titlecase | converToSpacesPipe : '-' }} </td>
+                        <td>{{product.productId}} </td>
+                        <!-- currency: 'currencycode' :'symbol' : 'minimumlenght.fraction-maxfractionlength' -->
+                        <td>{{product.price | currency: 'USD' : 'symbol' : '1.2-2' | lowercase }} </td>
+                        <td class="text-center"> 
+                            <pm-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'></pm-star> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
