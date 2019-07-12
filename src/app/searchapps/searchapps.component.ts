@@ -7,7 +7,7 @@ import { SearchService } from './search.service';
 })
 export class SearchAppsComponent implements OnInit {
 
-  constructor(private itunes: SearchService) { }
+  constructor(public itunes: SearchService) { }
 
   ngOnInit() {
   }

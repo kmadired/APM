@@ -32,6 +32,7 @@ export class ProductListComponent implements OnInit{
 
     filteredProducts: IProduct[];
     products: IProduct[];
+    numbers: Number[];
 
     constructor(private productService: ProductService){
     
@@ -49,6 +50,17 @@ export class ProductListComponent implements OnInit{
         );
         this.filteredProducts = this.products;
         console.log('On Initialization!')
+        console.log('Just before subscribe');
+        this.numbers = new Array<number>();
+        this.productService.getObservable().subscribe(
+            x =>{ 
+                console.log('got value:' + x);
+                this.numbers.push(x);
+            },
+            err => {console.log('some error occured');},
+            () => {console.log('completed');}
+        );
+        console.log('Just after subscribe');
     }
 
     toggleImage(): void{

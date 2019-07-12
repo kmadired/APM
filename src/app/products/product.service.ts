@@ -24,6 +24,33 @@ export class ProductService
             .catch(this.handleError);
     }
 
+    getObservable(): Observable<any>{
+        var observable = Observable.create(
+            function(observer){
+                observer.next(1);
+                observer.next(2);
+                observer.next(3);
+                setTimeout((()=>{
+                    observer.next(4);
+                    observer.next(5);
+                    observer.next(6);
+                    
+                }),5000);
+                setTimeout((()=>{
+                    observer.next(7);
+                    observer.next(8);
+                    observer.next(9);
+                    observer.complete();
+                    
+                }),5000)
+                
+            }
+        );
+        return observable;
+
+    }
+
+
     private handleError(err: HttpErrorResponse) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
